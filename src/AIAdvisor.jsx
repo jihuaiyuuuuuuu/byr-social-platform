@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { callZhipuAI } from './supabase'
+import { callZhipuAI } from './lib/supabase'
 
 export default function AIAdvisor() {
   const [messages, setMessages] = useState([
