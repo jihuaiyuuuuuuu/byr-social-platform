@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { supabase, getPosts, createPost, getCurrentUser, createVerification, signUp, signIn, signOut } from './lib/supabase';
 import TestConnection from './TestConnection';
+import AIAdvisor from './AIAdvisor';
 
 // 导航栏组件
 const Header = ({ user, onSignOut }) => {
@@ -11,6 +12,7 @@ const Header = ({ user, onSignOut }) => {
         <div className="logo">北邮升学就业平台</div>
         <nav className="nav">
           <Link to="/" className="nav-link">首页</Link>
+          <Link to="/ai-advisor" className="nav-link">AI咨询</Link>
           <Link to="/post" className="nav-link">发布信息</Link>
           <Link to="/auth" className="nav-link">实名认证</Link>
           <Link to="/test" className="nav-link">诊断</Link>
@@ -487,6 +489,7 @@ function App() {
         <Route path="/auth" element={<AuthForm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/test" element={<TestConnection />} />
+        <Route path="/ai-advisor" element={<AIAdvisor />} />
       </Routes>
       <Footer />
     </Router>
