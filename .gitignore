@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 node_modules
 dist
 .env
 .DS_Store
 *.log
 .vite
-=======
+
 # Logs
 logs
 *.log
@@ -37,4 +36,3 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
->>>>>>> ce8fa56d373fe3c902aebc9910b4dae318a11a2d
