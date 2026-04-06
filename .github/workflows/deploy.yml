@@ -1,0 +1,41 @@
+# GitHub Actions 自动部署工作流
+# 当代码推送到 master 分支时，自动构建并部署到腾讯云EdgeOne
+
+name: Auto Deploy to EdgeOne
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Deploy to EdgeOne
+        uses: TencentCloud/edgeone-pages-action@v1
+        with:
+          secret_id: ${{ secrets.TENCENT_SECRET_ID }}
+          secret_key: ${{ secrets.TENCENT_SECRET_KEY }}
+          zone_id: ${{ secrets.EDGEONE_ZONE_ID }}
+          project_name: 'byr-social-platform'
+          dir: './dist'
